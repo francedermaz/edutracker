@@ -30,8 +30,8 @@ router.get("/", async (req, res) => {
 // Add student
 router.post("/", verifyToken, async (req, res) => {
   try {
-    const { name, age, gender, hasSibling, courseCode } = req.body;
-    const room = await Room.findOne({ where: { courseCode: courseCode } });
+    const { name, age, gender, hasSibling, roomId } = req.body;
+    const room = await Room.findOne({ where: { id: roomId } });
     if (!room) {
       return res.status(404).json({ error: "Room not found" });
     }
