@@ -41,6 +41,23 @@ export default function Home() {
       });
   };
 
+  const handleDeleteRoom = (roomId) => {
+    const token = localStorage.getItem("token");
+    axios
+      .delete(`http://localhost:3001/rooms/${roomId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        const updatedRooms = rooms.filter((room) => room.id !== roomId);
+        setRooms(updatedRooms);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const handleCancelAddRoom = () => {
     setShowModal(false);
   };
@@ -67,6 +84,7 @@ export default function Home() {
               <tr>
                 <th className={styles.left}>Name</th>
                 <th className={styles.center}>Students</th>
+                <th className={styles.center}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -79,6 +97,22 @@ export default function Home() {
                   </Link>
                   <td className={`${styles.cell} ${styles.center}`}>
                     {room?.Students?.length ? room.Students.length : 0}
+                  </td>
+                  <td className={styles.center}>
+                    <div className={styles.actions}>
+                      <img
+                        src="/assets/edit.png"
+                        alt="Edit"
+                        className={styles.icon}
+                        onClick={() => handleEditRoom(room)}
+                      />
+                      <img
+                        src="/assets/delete.png"
+                        alt="Delete"
+                        className={styles.icon}
+                        onClick={() => handleDeleteRoom(room.id)}
+                      />
+                    </div>
                   </td>
                 </tr>
               ))}

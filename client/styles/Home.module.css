@@ -82,3 +82,19 @@
   cursor: pointer;
   background-color: #b41515;
 }
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.icon {
+  width: 1em;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
