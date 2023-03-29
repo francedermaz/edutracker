@@ -3,6 +3,6 @@ const authRouter = require('./auth.js');
 
 const router = Router();
 
-router.use('/auth', authRouter);
+router.use('/', authRouter);
 
 module.exports = router;
