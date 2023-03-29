@@ -65,7 +65,7 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 // Edit room by courseCode
-router.put("/:courseCode", async (req, res) => {
+router.put("/:courseCode", verifyToken, async (req, res) => {
   try {
     const courseCode = req.params.courseCode;
     const { name, teacher } = req.body;
@@ -82,7 +82,7 @@ router.put("/:courseCode", async (req, res) => {
 });
 
 // Delete room by courseCode
-router.delete("/:courseCode", async (req, res) => {
+router.delete("/:courseCode", verifyToken, async (req, res) => {
   try {
     const { courseCode } = req.params;
 

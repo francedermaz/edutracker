@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { Student, Room, Sibling } = require("../db.js");
+const { verifyToken } = require("../middlewares/jwt.js");
 const router = Router();
 
 // Get all students
@@ -27,7 +28,7 @@ router.get("/", async (req, res) => {
 });
 
 // Add student
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
     const { name, age, gender, hasSibling, courseCode } = req.body;
     const room = await Room.findOne({ where: { courseCode: courseCode } });
@@ -78,7 +79,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Edit student by id
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
   try {
     const studentId = req.params.id;
     const { name, age, gender, hasSibling, roomId } = req.body;
@@ -104,7 +105,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete student by id
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const studentId = req.params.id;
     const student = await Student.findOne({ where: { id: studentId } });
