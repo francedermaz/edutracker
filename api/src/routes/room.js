@@ -21,12 +21,12 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get room by courseCode
-router.get("/:courseCode", async (req, res) => {
+// Get room by id
+router.get("/:id", async (req, res) => {
   try {
-    const courseCode = req.params.courseCode;
+    const roomId = req.params.id;
     const room = await Room.findOne({
-      where: { courseCode: courseCode },
+      where: { id: roomId },
       include: [
         {
           model: Student,

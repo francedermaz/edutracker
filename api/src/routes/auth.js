@@ -10,7 +10,7 @@ router.post("/login", async (req, res) => {
     return res.status(401).json({ error: "Invalid email or password" });
   }
   const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
+    expiresIn: "365d",
   });
   res.json({ token });
 });

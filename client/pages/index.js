@@ -3,6 +3,7 @@ import axios from "axios";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Navbar from "../components/NavBar";
+import Link from "next/link";
 
 export default function Home() {
   const [rooms, setRooms] = useState([]);
@@ -41,9 +42,15 @@ export default function Home() {
             </thead>
             <tbody>
               {rooms.map((room) => (
-                <tr key={room.id}>
-                  <td className={styles.left}>{room.name}</td>
-                  <td className={styles.center}>{room.Students.length}</td>
+                <tr key={room.id} className={styles.room}>
+                  <Link href={`/rooms/${room.id}`}>
+                    <td className={`${styles.cell} ${styles.left}`}>
+                      {room.name}
+                    </td>
+                  </Link>
+                  <td className={`${styles.cell} ${styles.center}`}>
+                    {room.Students.length}
+                  </td>
                 </tr>
               ))}
             </tbody>
