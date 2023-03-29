@@ -38,8 +38,6 @@ Student.belongsTo(Room); // A student belongs to a room
 Room.hasMany(Student); // A room has many students
 Student.hasMany(Sibling, { as: "siblings" }); // A student has many siblings
 Sibling.belongsTo(Student, { as: "siblingOf" }); // A sibling belongs to a student
-Admin.hasMany(Room); // A user has many rooms
-// Room.belongsTo(Admin); // A room belongs to a user
 
 module.exports = {
   ...sequelize.models,
