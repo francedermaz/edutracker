@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { Student, Room, Sibling } = require("../db.js");
+const { verifyToken } = require("../middlewares/jwt.js");
 const router = Router();
 
 // Get all rooms
@@ -52,7 +53,7 @@ router.get("/:courseCode", async (req, res) => {
 });
 
 // Add room
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
     const { name, courseCode, teacher } = req.body;
     const room = await Room.create({ name, courseCode, teacher });
