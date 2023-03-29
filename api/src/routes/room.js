@@ -81,12 +81,12 @@ router.put("/:courseCode", verifyToken, async (req, res) => {
   }
 });
 
-// Delete room by courseCode
-router.delete("/:courseCode", verifyToken, async (req, res) => {
+// Delete room by ID
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
-    const { courseCode } = req.params;
+    const { id } = req.params;
 
-    const room = await Room.findOne({ where: { courseCode } });
+    const room = await Room.findByPk(id);
     if (!room) {
       return res.status(404).json({ error: "Room not found" });
     }
