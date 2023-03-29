@@ -29,12 +29,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border:  1px solid #ddd;
+  border: 1px solid #ddd;
 }
 
 .table {
   width: 25em;
   border-collapse: collapse;
+  align-self: flex-start;
 }
 
 .cell {
@@ -42,7 +43,7 @@
   text-align: left;
 }
 
-.room{
+.room {
   border-bottom: 1px solid #ddd;
 }
 
@@ -51,7 +52,7 @@
   text-align: left;
 }
 
-.center{
+.center {
   padding: 8px;
   text-align: center;
 }

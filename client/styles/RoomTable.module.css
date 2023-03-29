@@ -7,20 +7,37 @@
 }
 
 .table {
-  width: 35em;
+  width: 40em;
   border-collapse: collapse;
+  align-self: flex-start;
 }
 
 .left {
   padding: 8px;
   text-align: left;
-  border:  1px solid #ddd;
+  border: 1px solid #ddd;
 }
 
 .center {
   padding: 8px;
   text-align: center;
-  border:  1px solid #ddd;
+  border: 1px solid #ddd;
+}
+
+.actions{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap:8px
+}
+
+.icon{
+    width: 1em;
+}
+
+.icon:hover{
+    cursor: pointer;
 }
 
 .table th {
