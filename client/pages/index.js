@@ -4,9 +4,12 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Navbar from "../components/NavBar";
 import Link from "next/link";
+import Modal from "../components/Modal";
+import AddRoomForm from "../components/AddRoomForm";
 
 export default function Home() {
   const [rooms, setRooms] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     axios
@@ -20,6 +23,28 @@ export default function Home() {
       });
   }, []);
 
+  const handleAddRoom = (room) => {
+    const token = localStorage.getItem("token");
+    axios
+      .post("http://localhost:3001/rooms", room, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const updatedRooms = [...rooms, response.data];
+        setRooms(updatedRooms);
+        setShowModal(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleCancelAddRoom = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -29,6 +54,10 @@ export default function Home() {
       </Head>
 
       <Navbar />
+
+      <button className={styles.add} onClick={() => setShowModal(true)}>
+        Add Room
+      </button>
 
       <main className={styles.main}>
         <h3 className={styles.title}>Rooms</h3>
@@ -49,7 +78,7 @@ export default function Home() {
                     </td>
                   </Link>
                   <td className={`${styles.cell} ${styles.center}`}>
-                    {room.Students.length}
+                    {room?.Students?.length ? room.Students.length : 0}
                   </td>
                 </tr>
               ))}
@@ -57,6 +86,12 @@ export default function Home() {
           </table>
         </div>
       </main>
+
+      {showModal && (
+        <Modal onClose={handleCancelAddRoom}>
+          <AddRoomForm onSave={handleAddRoom} onCancel={handleCancelAddRoom} />
+        </Modal>
+      )}
     </div>
   );
 }
