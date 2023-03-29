@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.name{
+    margin-top: 2em;
+    margin-bottom: 0em;
+}
+
+.teacher{
+    margin-bottom: 2em;
+}

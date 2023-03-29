@@ -3,6 +3,8 @@ import axios from "axios";
 import Head from "next/head";
 import Navbar from "../../components/NavBar";
 import { useEffect, useState } from "react";
+import RoomTable from "../../components/RoomTable";
+import styles from "../../styles/DetailsRoom.module.css";
 
 const RoomDetailPage = () => {
   const router = useRouter();
@@ -30,16 +32,15 @@ const RoomDetailPage = () => {
     <div>
       <Head>
         <title>{room.name} - EduTracker</title>
-        <meta name="description" content={room.description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Navbar />
 
-      <main>
-        <h1>{room.name}</h1>
-        <p>{room.description}</p>
-        <p>Students: {room.Students.length}</p>
+      <main className={styles.container}>
+        <h1 className={styles.name}>{room.name}</h1>
+        <p className={styles.teacher}>Teacher: {room.teacher}</p>
+        <RoomTable students={room.Students} />
       </main>
     </div>
   );
