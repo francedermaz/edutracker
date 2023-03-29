@@ -26,6 +26,9 @@
 .table_wrapper {
   max-height: 300px;
   overflow-y: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .table {
@@ -33,15 +36,22 @@
   border-collapse: collapse;
 }
 
+.cell {
+  padding: 8px;
+  text-align: left;
+}
+
+.room{
+  border-bottom: 1px solid #ddd;
+}
+
 .left {
   padding: 8px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
 }
 
 .center{
   padding: 8px;
-  border-bottom: 1px solid #ddd;
   text-align: center;
 }
 
