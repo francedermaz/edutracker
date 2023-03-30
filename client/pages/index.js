@@ -6,10 +6,13 @@ import Navbar from "../components/NavBar";
 import Link from "next/link";
 import Modal from "../components/Modal";
 import AddRoomForm from "../components/AddRoomForm";
+import EditRoomForm from "../components/EditRoomForm";
 
 export default function Home() {
   const [rooms, setRooms] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showModalEdit, setShowModalEdit] = useState(false);
+  const [editingRoom, setEditingRoom] = useState(null);
 
   useEffect(() => {
     axios
@@ -35,6 +38,36 @@ export default function Home() {
         const updatedRooms = [...rooms, response.data];
         setRooms(updatedRooms);
         setShowModal(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleEditRoom = (room) => {
+    setEditingRoom(room);
+    setShowModalEdit(true);
+  };
+
+  const handleEditRoomSubmit = (room) => {
+    const token = localStorage.getItem("token");
+    axios
+      .put(`http://localhost:3001/rooms/${editingRoom.id}`, room, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const updatedRooms = rooms.map((r) => {
+          if (r.id === response.data.id) {
+            return response.data;
+          } else {
+            return r;
+          }
+        });
+        setRooms(updatedRooms);
+        setEditingRoom(null);
+        setShowModalEdit(false);
       })
       .catch((error) => {
         console.log(error);
@@ -125,6 +158,17 @@ export default function Home() {
         <Modal onClose={handleCancelAddRoom}>
           <AddRoomForm onSave={handleAddRoom} onCancel={handleCancelAddRoom} />
         </Modal>
+      )}
+
+      {showModalEdit && (
+        <EditRoomForm
+          room={editingRoom}
+          onSave={handleEditRoomSubmit}
+          onCancel={() => {
+            setShowModalEdit(false);
+            setEditingRoom(null);
+          }}
+        />
       )}
     </div>
   );

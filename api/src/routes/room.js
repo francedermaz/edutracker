@@ -64,12 +64,12 @@ router.post("/", verifyToken, async (req, res) => {
   }
 });
 
-// Edit room by courseCode
-router.put("/:courseCode", verifyToken, async (req, res) => {
+// Edit room by id
+router.put("/:id", verifyToken, async (req, res) => {
   try {
-    const courseCode = req.params.courseCode;
+    const id = req.params.id;
     const { name, teacher } = req.body;
-    const room = await Room.findOne({ where: { courseCode: courseCode } });
+    const room = await Room.findOne({ where: { id: id } });
     if (!room) {
       return res.status(404).json({ error: "Room not found" });
     }
