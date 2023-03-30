@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import styles from "../styles/RoomTable.module.css";
 import EditStudentForm from "../components/EditStudentForm";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RoomTable = ({ students }) => {
   const [studentsA, setStudentsA] = useState(students);
@@ -97,11 +99,9 @@ const RoomTable = ({ students }) => {
                     alt="Edit"
                     className={styles.icon}
                     onClick={() =>
-                      localStorage.getItem("token") ? (
-                        handleEditStudent(student)
-                      ) : (
-                        <></>
-                      )
+                      localStorage.getItem("token")
+                        ? handleEditStudent(student)
+                        : toast.error("You should log in first.")
                     }
                   />
                   <img
@@ -109,11 +109,9 @@ const RoomTable = ({ students }) => {
                     alt="Delete"
                     className={styles.icon}
                     onClick={() =>
-                      localStorage.getItem("token") ? (
-                        handleDeleteStudent(student.id)
-                      ) : (
-                        <></>
-                      )
+                      localStorage.getItem("token")
+                        ? handleDeleteStudent(student.id)
+                        : toast.error("You should log in first.")
                     }
                   />
                 </div>
@@ -122,6 +120,7 @@ const RoomTable = ({ students }) => {
           ))}
         </tbody>
       </table>
+      <ToastContainer />
     </div>
   );
 };

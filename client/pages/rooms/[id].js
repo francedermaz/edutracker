@@ -7,6 +7,8 @@ import RoomTable from "../../components/RoomTable";
 import AddStudentForm from "../../components/AddStudentForm";
 import Modal from "../../components/Modal";
 import styles from "../../styles/DetailsRoom.module.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RoomDetailPage = () => {
   const router = useRouter();
@@ -67,7 +69,9 @@ const RoomDetailPage = () => {
       <button
         className={styles.add}
         onClick={() =>
-          localStorage.getItem("token") ? setShowModal(true) : <></>
+          localStorage.getItem("token")
+            ? setShowModal(true)
+            : toast.error("You should log in first.")
         }
       >
         Add Student
@@ -87,6 +91,7 @@ const RoomDetailPage = () => {
           />
         </Modal>
       )}
+      <ToastContainer />
     </div>
   );
 };

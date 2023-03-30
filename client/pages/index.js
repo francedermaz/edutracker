@@ -7,6 +7,8 @@ import Link from "next/link";
 import Modal from "../components/Modal";
 import AddRoomForm from "../components/AddRoomForm";
 import EditRoomForm from "../components/EditRoomForm";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
   const [rooms, setRooms] = useState([]);
@@ -108,7 +110,7 @@ export default function Home() {
       <button
         className={styles.add}
         onClick={() =>
-          localStorage.getItem("token") ? setShowModal(true) : <></>
+          localStorage.getItem("token") ? setShowModal(true) : toast.error("You should log in first.")
         }
       >
         Add Room
@@ -146,7 +148,7 @@ export default function Home() {
                           localStorage.getItem("token") ? (
                             handleEditRoom(room)
                           ) : (
-                            <></>
+                            toast.error("You should log in first.")
                           )
                         }
                       />
@@ -158,7 +160,7 @@ export default function Home() {
                           localStorage.getItem("token") ? (
                             handleDeleteRoom(room.id)
                           ) : (
-                            <></>
+                            toast.error("You should log in first.")
                           )
                         }
                       />
@@ -187,6 +189,8 @@ export default function Home() {
           }}
         />
       )}
+
+      <ToastContainer />
     </div>
   );
 }
