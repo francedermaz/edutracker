@@ -30,14 +30,7 @@ router.get("/:id", async (req, res) => {
       include: [
         {
           model: Student,
-          attributes: ["id", "name", "age", "gender", "hasSibling"],
-          include: [
-            {
-              model: Sibling,
-              as: "siblings",
-              attributes: ["id", "name"],
-            },
-          ],
+          attributes: ["id", "name", "age", "gender", "hasSibling", "siblings"],
         },
       ],
       attributes: { exclude: ["createdAt", "updatedAt"] },

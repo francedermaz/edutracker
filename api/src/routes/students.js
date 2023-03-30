@@ -12,11 +12,6 @@ router.get("/", async (req, res) => {
           model: Room,
           attributes: ["id", "name"],
         },
-        {
-          model: Sibling,
-          as: "siblings",
-          attributes: ["id", "name"],
-        },
       ],
       attributes: { exclude: ["roomId"] },
     });
@@ -30,7 +25,7 @@ router.get("/", async (req, res) => {
 // Add student
 router.post("/", verifyToken, async (req, res) => {
   try {
-    const { name, age, gender, hasSibling, roomId } = req.body;
+    const { name, age, gender, hasSibling, siblings, roomId } = req.body;
     const room = await Room.findOne({ where: { id: roomId } });
     if (!room) {
       return res.status(404).json({ error: "Room not found" });
@@ -40,6 +35,7 @@ router.post("/", verifyToken, async (req, res) => {
       age,
       gender,
       hasSibling,
+      siblings,
       RoomId: room.id,
     });
     res.status(201).json(student);
@@ -60,11 +56,6 @@ router.get("/:id", async (req, res) => {
           model: Room,
           attributes: ["id", "name"],
         },
-        {
-          model: Sibling,
-          as: "siblings",
-          attributes: ["id", "name"],
-        },
       ],
       attributes: { exclude: ["createdAt", "updatedAt", "RoomId"] },
     });
@@ -82,7 +73,7 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", verifyToken, async (req, res) => {
   try {
     const studentId = req.params.id;
-    const { name, age, gender, hasSibling, roomId } = req.body;
+    const { name, age, gender, hasSibling, siblings, roomId } = req.body;
 
     const student = await Student.findOne({ where: { id: studentId } });
     if (!student) {
@@ -96,7 +87,14 @@ router.put("/:id", verifyToken, async (req, res) => {
       }
     }
 
-    await student.update({ name, age, gender, hasSibling, RoomId: roomId });
+    await student.update({
+      name,
+      age,
+      gender,
+      hasSibling,
+      siblings,
+      RoomId: roomId,
+    });
     res.status(200).json(student);
   } catch (error) {
     console.error(error);

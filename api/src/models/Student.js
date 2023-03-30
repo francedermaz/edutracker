@@ -24,5 +24,9 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: false,
     },
+    siblings: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
+    },
   });
 };

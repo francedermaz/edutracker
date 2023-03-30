@@ -36,7 +36,7 @@ const { Room, Sibling, Student, Admin } = sequelize.models;
 
 Student.belongsTo(Room); // A student belongs to a room
 Room.hasMany(Student); // A room has many students
-Student.hasMany(Sibling, { as: "siblings" }); // A student has many siblings
+Student.hasMany(Sibling, { as: "studentSiblings" }); // A student has many siblings
 Sibling.belongsTo(Student, { as: "siblingOf" }); // A sibling belongs to a student
 
 module.exports = {

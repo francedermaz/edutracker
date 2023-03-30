@@ -8,14 +8,28 @@ const AddStudentForm = ({ onSave, onCancel }) => {
   const [gender, setGender] = useState("male");
   const [hasSibling, setHasSibling] = useState(false);
   const [siblings, setSiblings] = useState("");
+  const [siblingsList, setSiblingsList] = useState([]);
+
+  const handleAddSibling = () => {
+    if (siblings !== "") {
+      setSiblingsList((prevList) => [...prevList, siblings]);
+      setSiblings("");
+    }
+  };
+
+  const handleRemoveSibling = (index) => {
+    const newList = [...siblingsList];
+    newList.splice(index, 1);
+    setSiblingsList(newList);
+  };
 
   const handleSave = () => {
     const newStudent = {
       name,
       age,
       gender,
-      hasSibling,
-      siblings,
+      hasSibling: siblingsList.length ? true : false,
+      siblings: siblingsList,
     };
     onSave(newStudent);
     setName("");
@@ -23,6 +37,7 @@ const AddStudentForm = ({ onSave, onCancel }) => {
     setGender("male");
     setHasSibling(false);
     setSiblings("");
+    setSiblingsList([]);
   };
 
   return (
@@ -44,18 +59,6 @@ const AddStudentForm = ({ onSave, onCancel }) => {
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-              <div className={styles.field}>
-                <label className={styles.label} htmlFor="age">
-                  Age:
-                </label>
-                <input
-                  type="number"
-                  id="age"
-                  value={age}
-                  className={styles.input}
-                  onChange={(e) => setAge(e.target.value)}
-                />
-              </div>
             </div>
             <div className={styles.right}>
               <div className={styles.field}>
@@ -72,34 +75,62 @@ const AddStudentForm = ({ onSave, onCancel }) => {
                   <option value="female">Female</option>
                 </select>
               </div>
-              <div className={styles.field}>
-                <label className={styles.label} htmlFor="hasSibling">
-                  Has Sibling:
-                </label>
-                <input
-                  type="checkbox"
-                  id="hasSibling"
-                  checked={hasSibling}
-                  className={styles.checkbox}
-                  onChange={(e) => setHasSibling(e.target.checked)}
-                />
-              </div>
             </div>
+          </div>
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor="age">
+              Age:
+            </label>
+            <input
+              type="number"
+              id="age"
+              value={age}
+              className={styles.input}
+              onChange={(e) => setAge(e.target.value)}
+            />
           </div>
           <div className={styles.field}>
             <label className={styles.label} htmlFor="siblings">
               Siblings:
             </label>
-            <input
-              type="text"
-              id="siblings"
-              value={siblings}
-              className={styles.input}
-              onChange={(e) => setSiblings(e.target.value)}
-            />
+            <div className={styles.siblingsInput}>
+              <input
+                type="text"
+                id="siblings"
+                value={siblings}
+                className={styles.input}
+                onChange={(e) => setSiblings(e.target.value)}
+              />
+              <button
+                type="button"
+                className={styles.addButton}
+                onClick={handleAddSibling}
+              >
+                Add
+              </button>
+            </div>
+            {siblingsList.length > 0 && (
+              <ul className={styles.siblingsList}>
+                {siblingsList.map((sibling, index) => (
+                  <li key={index} className={styles.sibling}>
+                    <p className={styles.siblingTitle}>{sibling}</p>
+                    <p
+                      className={styles.siblingX}
+                      onClick={() => handleRemoveSibling(index)}
+                    >
+                      x
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className={styles.actions}>
-            <button className={styles.button} type="button" onClick={handleSave}>
+            <button
+              className={styles.button}
+              type="button"
+              onClick={handleSave}
+            >
               Save
             </button>
             <button className={styles.buttonCancel} onClick={onCancel}>
