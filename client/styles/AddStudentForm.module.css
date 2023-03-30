@@ -97,3 +97,47 @@
 .buttonCancel {
   background-color: #c06761;
 }
+
+.addButton {
+  margin-left: 0.5em;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: #5ba5a1;
+  font-weight: bold;
+  width: 4em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.siblingsList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sibling {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  font-size: 1rem;
+  border-radius: 0.5em;
+  color: black;
+}
+
+.siblingTitle,
+.siblingX {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.siblingX {
+  color: red;
+  font-weight: 700;
+}
+
+.siblingX:hover {
+  cursor: pointer;
+}
