@@ -1,22 +1,20 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Dropdown from "../components/Dropdown";
 import styles from "../styles/Navbar.module.css";
 
 const Navbar = () => {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
-  let token = null;
+  const [token, setToken] = useState(null);
 
-  if (typeof window !== "undefined") {
-    token = localStorage.getItem("token");
-  }
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+  }, []);
 
   const handleLogout = () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("token");
-    }
+    localStorage.removeItem("token");
     router.push("/login");
   };
 
