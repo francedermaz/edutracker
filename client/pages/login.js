@@ -3,6 +3,7 @@ import styles from "../styles/Login.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Navbar from "../components/NavBar";
+import Head from "next/head";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -31,6 +32,12 @@ const LoginPage = () => {
 
   return (
     <div>
+      <Head>
+        <title>Login - EduTracker</title>
+        <meta name="description" content="EduTracker" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <Navbar />
       <div className={styles.loginContainer}>
         <h1 className={styles.loginTitle}>Login</h1>
