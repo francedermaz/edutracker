@@ -64,7 +64,12 @@ const RoomDetailPage = () => {
       </Head>
 
       <Navbar />
-      <button className={styles.add} onClick={() => setShowModal(true)}>
+      <button
+        className={styles.add}
+        onClick={() =>
+          localStorage.getItem("token") ? setShowModal(true) : <></>
+        }
+      >
         Add Student
       </button>
 

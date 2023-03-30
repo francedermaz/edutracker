@@ -105,7 +105,12 @@ export default function Home() {
 
       <Navbar />
 
-      <button className={styles.add} onClick={() => setShowModal(true)}>
+      <button
+        className={styles.add}
+        onClick={() =>
+          localStorage.getItem("token") ? setShowModal(true) : <></>
+        }
+      >
         Add Room
       </button>
 
@@ -137,13 +142,25 @@ export default function Home() {
                         src="/assets/edit.png"
                         alt="Edit"
                         className={styles.icon}
-                        onClick={() => handleEditRoom(room)}
+                        onClick={() =>
+                          localStorage.getItem("token") ? (
+                            handleEditRoom(room)
+                          ) : (
+                            <></>
+                          )
+                        }
                       />
                       <img
                         src="/assets/delete.png"
                         alt="Delete"
                         className={styles.icon}
-                        onClick={() => handleDeleteRoom(room.id)}
+                        onClick={() =>
+                          localStorage.getItem("token") ? (
+                            handleDeleteRoom(room.id)
+                          ) : (
+                            <></>
+                          )
+                        }
                       />
                     </div>
                   </td>

@@ -96,13 +96,25 @@ const RoomTable = ({ students }) => {
                     src="/assets/edit.png"
                     alt="Edit"
                     className={styles.icon}
-                    onClick={() => handleEditStudent(student)}
+                    onClick={() =>
+                      localStorage.getItem("token") ? (
+                        handleEditStudent(student)
+                      ) : (
+                        <></>
+                      )
+                    }
                   />
                   <img
                     src="/assets/delete.png"
                     alt="Delete"
                     className={styles.icon}
-                    onClick={() => handleDeleteStudent(student.id)}
+                    onClick={() =>
+                      localStorage.getItem("token") ? (
+                        handleDeleteStudent(student.id)
+                      ) : (
+                        <></>
+                      )
+                    }
                   />
                 </div>
               </td>
